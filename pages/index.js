@@ -81,16 +81,16 @@ export default function Home() {
             >
               Go back
             </button>
-            <h1 className="font-bold text-9xl text-secondary-400 mt-4 mb-10">{displayTime(time)}</h1>
+            <h1 className="font-bold text-7xl sm:text-9xl lg:text-[180px] xl:text-[240px] text-secondary-400 mt-4 mb-10">{displayTime(time)}</h1>
           </div>
         ) : (
           <>
-            <div className="flex items-baseline gap-8">
-              <h1 className="font-bold text-7xl text-secondary-400">Focus Clock</h1>
+            <div className="flex flex-col sm:flex-row items-baseline sm:gap-8">
+              <h1 className="font-bold text-secondary-400 text-4xl md:text-5xl lg:text-7xl ">Focus Clock</h1>
               <span className="text-slate-600">- Countdown timer to focus only on time</span>
             </div>
             <div className="h-full flex items-center justify-center mb-8">
-              <div className="w-1/4">
+              <div className="w-1/4 min-w-fit">
                 <div className="flex flex-col mt-2">
                   <label className="block mb-3 text-slate-300">Minutes</label>
                   <input
