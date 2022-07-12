@@ -1,52 +1,43 @@
 import { useEffect, useRef, useState } from "react";
 import Head from "next/head";
+import Timer from "../components/timer";
+import { useSelector, useDispatch } from "react-redux";
+import { setMinutes, setSeconds, setTime, setRunning, decrementTime, resetTimer } from "../store/timerSlice";
 
 export default function Home() {
   const intervalRef = useRef();
-  const [time, setTime] = useState(0);
-  const [min, setMinutes] = useState(0);
-  const [sec, setSeconds] = useState(0);
-  const [running, setRunning] = useState(false);
+  const dispatch = useDispatch();
 
-  const displayTime = () => {
-    const m = parseInt(time / 60)
-      .toString()
-      .padStart(2, 0);
-    const s = parseInt(time % 60)
-      .toString()
-      .padStart(2, 0);
-    return m + ":" + s;
-  };
+  const time = useSelector((state) => state.timer.time);
+  const min = useSelector((state) => state.timer.minutes);
+  const sec = useSelector((state) => state.timer.seconds);
+  const running = useSelector((state) => state.timer.running);
 
   const startClick = () => {
     clearTimer();
-    setRunning(true);
-    setTime(parseInt(min * 60) + parseInt(sec));
-    startTimer();
+    const iTime = parseInt(min * 60) + parseInt(sec);
+    if (iTime && iTime > 0) {
+      dispatch(setRunning(true));
+      dispatch(setTime(iTime));
+      startTimer();
+    }
   };
 
   const startTimer = () => {
     const id = setInterval(() => {
       if (time < 0) clearTimer();
-      else setTime((x) => x - 1);
+      else dispatch(decrementTime());
     }, 1000);
     intervalRef.current = id;
   };
 
   const clearTimer = () => {
-    setTime(0);
-    // setRunning(false);
+    dispatch(setTime(0));
     clearInterval(intervalRef.current);
   };
 
-  const pauseTimer = () => {
-    if (running) {
-      clearInterval(intervalRef.current);
-      setRunning(false);
-    } else {
-      startTimer();
-      setRunning(true);
-    }
+  const emptyTimer = () => {
+    dispatch(resetTimer());
   };
 
   useEffect(() => {
@@ -71,18 +62,7 @@ export default function Home() {
 
       <main className="flex flex-col flex-[100%] p-12">
         {running ? (
-          <div className="flex h-full w-full items-center justify-center relative">
-            <button
-              className="absolute top-0 left-0 block px-4 py-2 text-center mt-5 rounded-sm border-secondary-400 border"
-              onClick={() => {
-                clearTimer();
-                setRunning(false);
-              }}
-            >
-              Go back
-            </button>
-            <h1 className="font-bold text-7xl sm:text-9xl lg:text-[180px] xl:text-[240px] text-secondary-400 mt-4 mb-10">{displayTime(time)}</h1>
-          </div>
+          <Timer />
         ) : (
           <>
             <div className="flex flex-col sm:flex-row items-baseline sm:gap-8">
@@ -99,8 +79,7 @@ export default function Home() {
                     key="minutes"
                     value={min}
                     onChange={(e) => {
-                      console.log(e.target.value);
-                      setMinutes(e.target.value);
+                      dispatch(setMinutes(e.target.value));
                     }}
                   />
                 </div>
@@ -112,7 +91,7 @@ export default function Home() {
                     key="seconds"
                     value={sec}
                     onChange={(e) => {
-                      setSeconds(e.target.value);
+                      dispatch(setSeconds(e.target.value));
                     }}
                   />
                 </div>
@@ -123,12 +102,9 @@ export default function Home() {
                   >
                     Start
                   </button>
-                  {/* <button className="block px-3 py-2 text-center w-full mt-6 rounded-sm bg-secondary" onClick={pauseTimer}>
-              Pause/Resume
-            </button> */}
                   <button
                     className="block px-3 py-3 text-center w-full mt-5 rounded-sm border-secondary-400 transition-all duration-300 bg-primary-400 border hover:bg-primary-600"
-                    onClick={clearTimer}
+                    onClick={emptyTimer}
                   >
                     Reset
                   </button>
