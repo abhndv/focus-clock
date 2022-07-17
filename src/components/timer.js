@@ -1,8 +1,12 @@
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setMinutes, setSeconds, setTime, setRunning } from "../store/timerSlice";
+import { setTimerId, decrementTime, clearTimer, setTime, setRunning } from "../store/timerSlice";
 
 function Timer() {
   const time = useSelector((state) => state.timer.time);
+  const timer = useSelector((state) => state.timer.timer);
+  const running = useSelector((state) => state.timer.running);
+
   const dispatch = useDispatch();
 
   const displayTime = () => {
@@ -24,6 +28,20 @@ function Timer() {
   //       dispatch(setRunning(true));
   //     }
   //   };
+
+  useEffect(() => {
+    if (time < 0) dispatch(clearTimer());
+  }, [time]);
+
+  useEffect(() => {
+    if (running) {
+      clearInterval(timer);
+      const id = setInterval(() => {
+        dispatch(decrementTime());
+      }, 1000);
+      dispatch(setTimerId(id));
+    }
+  }, []);
 
   return (
     <div className="flex h-full w-full items-center justify-center relative">
