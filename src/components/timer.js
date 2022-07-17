@@ -6,6 +6,7 @@ function Timer() {
   const time = useSelector((state) => state.timer.time);
   const timer = useSelector((state) => state.timer.timer);
   const running = useSelector((state) => state.timer.running);
+  const textColor = useSelector((state) => state.theme.textColor);
 
   const dispatch = useDispatch();
 
@@ -46,7 +47,8 @@ function Timer() {
   return (
     <div className="flex h-full w-full items-center justify-center relative">
       <button
-        className="absolute top-0 left-0 block px-4 py-2 text-center mt-5 rounded-sm border-secondary-400 border"
+        className="absolute top-0 left-0 block px-4 py-2 text-center mt-5 rounded-sm border"
+        style={{ borderColor: textColor }}
         onClick={() => {
           dispatch(setTime(0));
           dispatch(setRunning(false));
@@ -54,7 +56,10 @@ function Timer() {
       >
         Go back
       </button>
-      <h1 className="font-bold text-7xl sm:text-9xl lg:text-[180px] xl:text-[240px] text-secondary-400 mt-4 mb-10">
+      <h1
+        className="font-bold text-7xl sm:text-9xl lg:text-[180px] xl:text-[240px] mt-4 mb-10"
+        style={{ color: textColor }}
+      >
         {displayTime(time)}
       </h1>
     </div>
