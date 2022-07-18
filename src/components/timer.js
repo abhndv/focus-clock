@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setTimerId, decrementTime, clearTimer, setTime, setRunning } from "../store/timerSlice";
+import { HiArrowLeft } from "react-icons/hi";
 
 function Timer() {
   const time = useSelector((state) => state.timer.time);
   const timer = useSelector((state) => state.timer.timer);
   const running = useSelector((state) => state.timer.running);
   const textColor = useSelector((state) => state.theme.textColor);
+  const backgroundColor = useSelector((state) => state.theme.background);
 
   const dispatch = useDispatch();
 
@@ -47,14 +49,14 @@ function Timer() {
   return (
     <div className="flex h-full w-full items-center justify-center relative">
       <button
-        className="absolute top-0 left-0 block px-4 py-2 text-center mt-5 rounded-sm border"
-        style={{ borderColor: textColor }}
+        className="absolute top-0 left-0 block p-2 rounded-full timer-back"
         onClick={() => {
           dispatch(setTime(0));
           dispatch(setRunning(false));
         }}
+        style={{ backgroundColor: textColor }}
       >
-        Go back
+        <HiArrowLeft className="h-5 w-5 transition-all duration-100 timer-back__icon" style={{ color: backgroundColor }} />
       </button>
       <h1
         className="font-bold text-7xl sm:text-9xl lg:text-[180px] xl:text-[240px] mt-4 mb-10"

@@ -31,3 +31,7 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.timer-back:hover .timer-back__icon {
+  transform: scale3d(1.2, 1.2, 1.2);
+}
