@@ -10,7 +10,7 @@ export default function Home() {
   const textColor = useSelector((state) => state.theme.textColor);
 
   return (
-    <div className="text-white h-screen w-screen flex flex-col" style={{ backgroundColor: background }}>
+    <div className="text-white min-h-screen w-screen flex flex-col" style={{ backgroundColor: background }}>
       <Head>
         <title>Focus Clock</title>
         <meta name="description" content="Focus Clock" />
@@ -26,7 +26,7 @@ export default function Home() {
               <h1 className="font-bold text-4xl md:text-5xl lg:text-7xl">Focus Clock</h1>
               <small className="">- Countdown timer to focus only on time</small>
             </div>
-            <div className="h-full flex items-center justify-evenly mb-8">
+            <div className="h-full flex flex-col lg:flex-row items-center justify-evenly my-8 gap-8">
               <TimerForm />
               <Theme />
             </div>

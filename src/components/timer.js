@@ -47,7 +47,7 @@ function Timer() {
   }, []);
 
   return (
-    <div className="flex h-full w-full items-center justify-center relative">
+    <div className="flex flex-1 h-full w-full items-center justify-center relative">
       <button
         className="absolute top-0 left-0 block p-2 rounded-full timer-back"
         onClick={() => {
