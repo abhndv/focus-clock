@@ -127,18 +127,7 @@ const bgColors = {
   // thistle: "#D8BFD8",
   // plum: "#DDA0DD",
   // violet: "#EE82EE",
-  orchid: "#DA70D6",
-  // magenta: "#FF00FF",
-  // darkmagenta: "#8B008B",
-  // purple: "#800080",
-  // deeppink: "#FF1493",
-  // mediumvioletred: "#C71585",
-  // pink: "#FFC0CB",
   lightpink: "#FFB6C1",
-  // crimson: "#DC143C",
-  // lavenderblush: "#FFF0F5",
-  hotpink: "#FF69B4",
-  // palevioletred: "#DB7093",
 };
 
 const textColors = {

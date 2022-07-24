@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   timer: null,
   time: 0,
+  isFlipTimer: false,
   minutes: 0,
   seconds: 0,
   running: false,
@@ -42,6 +43,9 @@ export const timerSlice = createSlice({
     setRunning: (state, action) => {
       state.running = action.payload;
     },
+    setFlipTimer: (state, action) => {
+      state.isFlipTimer = action.payload;
+    },
   },
 });
 
@@ -56,6 +60,7 @@ export const {
   setSeconds,
   setTime,
   setRunning,
+  setFlipTimer,
 } = timerSlice.actions;
 
 export default timerSlice.reducer;

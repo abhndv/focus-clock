@@ -1,17 +1,18 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setMinutes, setSeconds, startTimer, clearTimer, resetTimer } from "../store/timerSlice";
+import { setMinutes, setSeconds, startTimer, setFlipTimer, resetTimer } from "../store/timerSlice";
 
 function TimerForm() {
   const dispatch = useDispatch();
 
   const min = useSelector((state) => state.timer.minutes);
   const sec = useSelector((state) => state.timer.seconds);
+  const isFlipTimer = useSelector((state) => state.timer.isFlipTimer);
   const background = useSelector((state) => state.theme.background);
   const textColor = useSelector((state) => state.theme.textColor);
 
   const startClick = () => {
     const iTime = parseInt(min * 60) + parseInt(sec);
-    dispatch(startTimer(iTime));
+    if (iTime > 0) dispatch(startTimer(iTime));
   };
 
   const emptyTimer = () => {
@@ -20,6 +21,26 @@ function TimerForm() {
 
   return (
     <div className="w-full lg:w-1/4 flex lg:flex-col gap-3 md:gap-5 justify-between min-w-fit">
+      <div className="flex gap-4">
+        <button
+          className="inline-block py-3 px-4 rounded-lg border"
+          onClick={() => {
+            dispatch(setFlipTimer(false));
+          }}
+          style={{ color: textColor, borderColor: isFlipTimer ? "transparent" : textColor }}
+        >
+          Normal
+        </button>
+        <button
+          className="inline-block py-3 px-4 rounded-lg border"
+          onClick={() => {
+            dispatch(setFlipTimer(true));
+          }}
+          style={{ color: textColor, borderColor: isFlipTimer ? textColor : "transparent" }}
+        >
+          FlipTimer
+        </button>
+      </div>
       <div className="flex flex-col mt-2">
         <label className="block mb-3" style={{ color: textColor }}>
           Minutes

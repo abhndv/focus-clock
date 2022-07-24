@@ -1,32 +1,25 @@
 import Head from "next/head";
 import Theme from "../components/theme";
 import Timer from "../components/timer";
+import FlipTimer from "../components/flipTimer";
 import TimerForm from "../components/timerForm";
 import { useSelector } from "react-redux";
 
 export default function Home() {
   const running = useSelector((state) => state.timer.running);
+  const isFlipTimer = useSelector((state) => state.timer.isFlipTimer);
   const background = useSelector((state) => state.theme.background);
   const textColor = useSelector((state) => state.theme.textColor);
 
   return (
     <div className="text-white min-h-screen w-screen flex flex-col" style={{ backgroundColor: background }}>
-      <Head>
-        <title>Focus Clock</title>
-        <meta name="description" content="Countdown Timer that lets you focus. Inspired based on timer/clock seen on Work Dest Setup tiktoks/reels." />
-        <meta name="keywords" content="TikTok Timer, Timer, Countdown Timer, Flip Timer"/>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-
       <main className="flex flex-col flex-[100%] p-12">
         {running ? (
-          <Timer />
+          isFlipTimer ? (
+            <FlipTimer />
+          ) : (
+            <Timer />
+          )
         ) : (
           <>
             <div className="flex flex-col sm:flex-row items-baseline sm:gap-4" style={{ color: textColor }}>
