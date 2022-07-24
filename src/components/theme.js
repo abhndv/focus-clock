@@ -27,7 +27,7 @@ function Theme() {
             {value == background ? <HiCheckCircle /> : <span></span>}
             <p>
               <span className="text-ellipsis whitespace-pre w-full overflow-hidden block">{key}</span>
-              {value}
+              <span className="text-ellipsis whitespace-pre w-full overflow-hidden block">{value}</span>
             </p>
           </div>
         ))}
@@ -46,8 +46,7 @@ function Theme() {
             {value == textColor ? <HiCheckCircle /> : <span></span>}
             <p>
               <span className="text-ellipsis whitespace-pre w-full overflow-hidden block">{key}</span>
-
-              {value}
+              <span className="text-ellipsis whitespace-pre w-full overflow-hidden block">{value}</span>
             </p>
           </div>
         ))}
