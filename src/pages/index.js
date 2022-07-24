@@ -13,7 +13,8 @@ export default function Home() {
     <div className="text-white min-h-screen w-screen flex flex-col" style={{ backgroundColor: background }}>
       <Head>
         <title>Focus Clock</title>
-        <meta name="description" content="Focus Clock" />
+        <meta name="description" content="Countdown Timer that lets you focus. Inspired based on timer/clock seen on Work Dest Setup tiktoks/reels." />
+        <meta name="keywords" content="TikTok Timer, Timer, Countdown Timer, Flip Timer"/>
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
