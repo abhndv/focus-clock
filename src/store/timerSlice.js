@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  timer: null,
   time: 0,
   isFlipTimer: false,
   minutes: 0,
@@ -15,36 +14,36 @@ export const timerSlice = createSlice({
   reducers: {
     startTimer: (state, action) => {
       const iTime = action.payload;
-      state.time = iTime || 0;
-      state.running = true;
-    },
-    setTimerId: (state, action) => {
-      state.timer = action.payload;
+      return { ...state, time: iTime || 0, running: true };
     },
     clearTimer: (state) => {
-      if (state.time != 0) state.time = 0;
-      if (state.timer) clearInterval(state.timer);
+      let time = state.time;
+      if (time != 0) time = 0;
+      return { ...state, time };
     },
     resetTimer: (state) => {
-      state = { ...state, ...initialState };
+      return { ...state, ...initialState };
     },
     decrementTime: (state) => {
-      if (!(state.time < 0)) state.time -= 1;
+      let time = state.time;
+      if (time > 0) time -= 1;
+      else time = 0;
+      return { ...state, time };
     },
     setTime: (state, action) => {
-      state.time = action.payload;
+      return { ...state, time: action.payload };
     },
     setMinutes: (state, action) => {
-      state.minutes = action.payload;
+      return { ...state, minutes: action.payload };
     },
     setSeconds: (state, action) => {
-      state.seconds = action.payload;
+      return { ...state, seconds: action.payload };
     },
     setRunning: (state, action) => {
-      state.running = action.payload;
+      return { ...state, running: action.payload };
     },
     setFlipTimer: (state, action) => {
-      state.isFlipTimer = action.payload;
+      return { ...state, isFlipTimer: action.payload };
     },
   },
 });
@@ -55,7 +54,6 @@ export const {
   clearTimer,
   resetTimer,
   decrementTime,
-  setTimerId,
   setMinutes,
   setSeconds,
   setTime,

@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setTimerId, decrementTime, clearTimer, setTime, setRunning } from "../store/timerSlice";
+import { decrementTime, clearTimer, setTime, setRunning } from "../store/timerSlice";
 import { HiArrowLeft } from "react-icons/hi";
 
 function FlipTimer() {
   const time = useSelector((state) => state.timer.time);
-  const timer = useSelector((state) => state.timer.timer);
   const running = useSelector((state) => state.timer.running);
   const textColor = useSelector((state) => state.theme.textColor);
   const backgroundColor = useSelector((state) => state.theme.background);
+
+  const timerId = useRef();
+  const stopTimer = () => clearInterval(timerId.current);
 
   const getSeconds = () => {
     return parseInt(time % 60)
@@ -32,18 +34,20 @@ function FlipTimer() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (time == 0 && timerId.current != undefined) stopTimer();
     if (time < 0) dispatch(clearTimer());
     else startFlipping();
   }, [time]);
 
   useEffect(() => {
     if (running) {
-      clearInterval(timer);
-      const id = setInterval(() => {
+      stopTimer();
+      timerId.current = setInterval(() => {
         dispatch(decrementTime());
       }, 1000);
-      dispatch(setTimerId(id));
     }
+
+    return () => stopTimer();
   }, []);
 
   function flipSeconds() {
