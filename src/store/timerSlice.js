@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   time: 0,
   isFlipTimer: false,
-  minutes: 0,
-  seconds: 0,
+  minutes: 10,
+  seconds: 10,
   running: false,
 };
 

@@ -1,12 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setMinutes, setSeconds, startTimer, setFlipTimer, resetTimer } from "../store/timerSlice";
+import { setMinutes, setSeconds, startTimer, resetTimer } from "../store/timerSlice";
 
 function TimerForm() {
   const dispatch = useDispatch();
 
   const min = useSelector((state) => state.timer.minutes);
   const sec = useSelector((state) => state.timer.seconds);
-  const isFlipTimer = useSelector((state) => state.timer.isFlipTimer);
   const background = useSelector((state) => state.theme.background);
   const textColor = useSelector((state) => state.theme.textColor);
 
@@ -21,26 +20,6 @@ function TimerForm() {
 
   return (
     <div className="w-full lg:w-1/4 flex lg:flex-col gap-3 md:gap-5 justify-between min-w-fit">
-      <div className="flex gap-4">
-        <button
-          className="inline-block py-3 px-4 rounded-lg border"
-          onClick={() => {
-            dispatch(setFlipTimer(false));
-          }}
-          style={{ color: textColor, borderColor: isFlipTimer ? "transparent" : textColor }}
-        >
-          Normal
-        </button>
-        <button
-          className="inline-block py-3 px-4 rounded-lg border"
-          onClick={() => {
-            dispatch(setFlipTimer(true));
-          }}
-          style={{ color: textColor, borderColor: isFlipTimer ? textColor : "transparent" }}
-        >
-          FlipTimer
-        </button>
-      </div>
       <div className="flex flex-col mt-2">
         <label className="block mb-3" style={{ color: textColor }}>
           Minutes
@@ -71,7 +50,7 @@ function TimerForm() {
           style={{ borderColor: textColor, color: textColor }}
         />
       </div>
-      <div className="flex flex-row-reverse gap-3 md:gap-5 mt-6 w-full">
+      <div className="flex flex-row-reverse gap-3 md:gap-5 mt-6 w-full lg:w-64 xl:w-full">
         <button
           className="block px-3 py-3 text-center min-w-[80px] md:min-w-[120px] w-full mt-5 rounded-sm transition-all duration-300"
           onClick={startClick}
